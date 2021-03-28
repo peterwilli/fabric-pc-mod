@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "GameloopMixin"
+    "GameloopMixin",
+    "ClientPlayNetworkMixin"
   ],
   "injectors": {
     "defaultRequire": 1

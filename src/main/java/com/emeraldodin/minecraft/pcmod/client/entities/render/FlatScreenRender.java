@@ -44,7 +44,6 @@ public class FlatScreenRender extends EntityRenderer<EntityFlatScreen>{
 	@Override
 	public void render(EntityFlatScreen entity, float yaw, float tickDelta, MatrixStack matrices,
 					   VertexConsumerProvider vertexConsumers, int light) {
-		System.out.println("render()");
 		matrices.push();
 		matrices.translate(0, 0.5, 0);
 		Quaternion look = Utils.lookAt(entity.getPos(), entity.getLookAtPos());
