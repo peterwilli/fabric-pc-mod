@@ -10,18 +10,16 @@ import net.minecraft.util.registry.Registry;
 
 public class EntityList {
 	public static EntityType<Entity> ITEM_PREVIEW;
-	public static EntityType<Entity> KEYBOARD;
-	public static EntityType<Entity> MOUSE;
-	public static EntityType<Entity> CRT_SCREEN;
 	public static EntityType<Entity> FLATSCREEN;
-	public static EntityType<Entity> WALLTV;
-	public static EntityType<Entity> PC;
-	public static EntityType<Entity> DELIVERY_CHEST;
 
 	public static void init() {
 		FLATSCREEN = Registry.register(Registry.ENTITY_TYPE,
 				new Identifier("pcmod", "flat_screen"),
 				FabricEntityTypeBuilder.create(SpawnGroup.MISC, EntityFlatScreen::new)
 						.size(new EntityDimensions(0.8f, 0.8f, true)).trackable(60, 2, true).build());
+		ITEM_PREVIEW = Registry.register(Registry.ENTITY_TYPE,
+				new Identifier("pcmod", "item_preview"),
+				FabricEntityTypeBuilder.create(SpawnGroup.MISC, EntityItemPreview::new)
+						.size(new EntityDimensions(1,1, true)).trackable(60, 2,true).build());
 	}
 }

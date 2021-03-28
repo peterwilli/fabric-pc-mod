@@ -88,7 +88,6 @@ public class EntityFlatScreen extends Entity{
 			if(!player.isSneaking()) {
 				if(this.getOwnerUUID().equals(player.getUuid().toString())) {
 //					MainMod.focus.run();
-					System.out.println("SEEEX");
 				}
 			}
 		}
