@@ -35,15 +35,20 @@ public class VNCReceiver {
     private int width = 0, height = 0;
     private NativeImageBackedTexture lastNIBT;
 
+    public static VNCReceiver current;
+
+    public VernacularClient client;
+
     public VNCReceiver(String host, int port) {
         this.host = host;
         this.port = port;
+        current = this;
     }
 
     public void connect() {
         MinecraftClient mcc = MinecraftClient.getInstance();
         VernacularConfig config = new VernacularConfig();
-        VernacularClient client = new VernacularClient(config);
+        this.client = new VernacularClient(config);
 
         // Select 8-bits per pixel indexed color, or 8/16/24 bits per pixel true color
         config.setColorDepth(ColorDepth.BPP_8_INDEXED);

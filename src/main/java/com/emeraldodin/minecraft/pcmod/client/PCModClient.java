@@ -3,6 +3,7 @@ package com.emeraldodin.minecraft.pcmod.client;
 import com.emeraldodin.minecraft.pcmod.client.entities.render.FlatScreenRender;
 import com.emeraldodin.minecraft.pcmod.client.entities.render.ItemPreviewRender;
 import com.emeraldodin.minecraft.pcmod.client.gui.PCScreenFocus;
+import com.emeraldodin.minecraft.pcmod.client.utils.VNCControlRunnable;
 import com.emeraldodin.minecraft.pcmod.entities.EntityItemPreview;
 import com.emeraldodin.minecraft.pcmod.entities.EntityList;
 
@@ -41,6 +42,8 @@ public class PCModClient implements ClientModInitializer {
     public static boolean middleMouseButton;
     public static boolean rightMouseButton;
     public static boolean isOnClient = false;
+
+    public static Thread vncUpdateThread;
 
     static {
         if (SystemUtils.IS_OS_MAC) {
@@ -104,6 +107,8 @@ public class PCModClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(EntityList.ITEM_PREVIEW,
                 (entityRenderDispatcher, context) -> new ItemPreviewRender(entityRenderDispatcher));
 
+        vncUpdateThread = new Thread(new VNCControlRunnable(), "VNC Update Thread");
+        vncUpdateThread.start();
         new VNCReceiver("127.0.0.1", 5900).connect();
     }
 
