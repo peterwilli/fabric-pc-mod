@@ -2,6 +2,7 @@ package com.emeraldodin.minecraft.pcmod.client.utils;
 
 import com.emeraldodin.minecraft.pcmod.client.VNCReceiver;
 import com.emeraldodin.minecraft.pcmod.client.gui.PCScreenFocus;
+import com.shinyhut.vernacular.client.VernacularClient;
 
 import net.minecraft.client.MinecraftClient;
 
@@ -14,6 +15,8 @@ import static com.emeraldodin.minecraft.pcmod.client.PCModClient.mouseLastY;
 import static com.emeraldodin.minecraft.pcmod.client.PCModClient.rightMouseButton;
 
 public class VNCControlRunnable implements Runnable {
+
+    private boolean lastLeftMouseButton = false;
 
     @Override
     public void run() {
@@ -31,6 +34,14 @@ public class VNCControlRunnable implements Runnable {
                 if (mcc.currentScreen instanceof PCScreenFocus) {
                     if((Math.abs(deltaX) + Math.abs(deltaY)) > 2) {
                         VNCReceiver.current.client.moveMouse((int) mouseCurX, (int) mouseCurY);
+                    }
+
+                    if(leftMouseButton && lastLeftMouseButton != leftMouseButton) {
+                        VNCReceiver.current.client.click(1);
+                    }
+
+                    if(lastLeftMouseButton != leftMouseButton) {
+                        lastLeftMouseButton = leftMouseButton;
                     }
                 }
 
