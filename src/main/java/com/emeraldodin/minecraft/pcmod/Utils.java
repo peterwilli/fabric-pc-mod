@@ -28,4 +28,9 @@ public class Utils {
         Quaternion q = new Quaternion((float) axis.x * s, (float) axis.y * s, (float) axis.z * s, (float)Math.cos(halfAngle));
         return q;
     }
+
+    public static char GLFWKeyToCharacter(int keyCode) {
+        char result = (char) keyCode;
+        return result;
+    }
 }

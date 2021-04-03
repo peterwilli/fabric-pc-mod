@@ -8,7 +8,8 @@
   "client": [
     "GameloopMixin",
     "ClientPlayNetworkMixin",
-    "MouseMixin"
+    "MouseMixin",
+    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

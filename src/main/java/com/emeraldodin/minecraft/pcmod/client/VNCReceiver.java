@@ -8,21 +8,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
-import java.awt.image.Raster;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.lang.annotation.Native;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
 
 public class VNCReceiver {
 
@@ -79,8 +68,7 @@ public class VNCReceiver {
                     PCModClient.vmScreenTextures.put(mcc.player.getUuid(), mcc.getTextureManager().registerDynamicTexture("pc_screen_mp", nibt));
                 }
                 else {
-                    createNI(image);
-//                    lastNIBT.setImage(ni);
+                    drawNI(image);
                     lastNIBT.upload();
                 }
             }
@@ -92,7 +80,7 @@ public class VNCReceiver {
         client.start(host, port);
     }
 
-    private void createNI(Image image) {
+    private void drawNI(Image image) {
         toBufferedImage(image);
         if(ni == null) {
             // We need to use ABGR otherwise we can't set a custom pixel color
@@ -114,7 +102,7 @@ public class VNCReceiver {
     }
 
     private NativeImageBackedTexture createNIBT(Image image) {
-        createNI(image);
+        drawNI(image);
         return new NativeImageBackedTexture(ni);
     }
 
