@@ -72,14 +72,17 @@ public class VNCReceiver {
                 if(height == 0) {
                     height = image.getHeight(null);
                 }
-                @SuppressWarnings("SpellCheckingInspection")
-                NativeImageBackedTexture nibt = createNIBT(image);
-                PCModClient.vmScreenTextures.put(mcc.player.getUuid(), mcc.getTextureManager().registerDynamicTexture("pc_screen_mp", nibt));
-                if(lastNIBT != null) {
-                    lastNIBT.clearGlId();
-                    lastNIBT = null;
+                if(!PCModClient.vmScreenTextures.containsKey(mcc.player.getUuid())) {
+                    @SuppressWarnings("SpellCheckingInspection")
+                    NativeImageBackedTexture nibt = createNIBT(image);
+                    lastNIBT = nibt;
+                    PCModClient.vmScreenTextures.put(mcc.player.getUuid(), mcc.getTextureManager().registerDynamicTexture("pc_screen_mp", nibt));
                 }
-                lastNIBT = nibt;
+                else {
+                    createNI(image);
+//                    lastNIBT.setImage(ni);
+                    lastNIBT.upload();
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -89,7 +92,7 @@ public class VNCReceiver {
         client.start(host, port);
     }
 
-    private NativeImageBackedTexture createNIBT(Image image) {
+    private void createNI(Image image) {
         toBufferedImage(image);
         if(ni == null) {
             // We need to use ABGR otherwise we can't set a custom pixel color
@@ -108,6 +111,10 @@ public class VNCReceiver {
                 ni.setPixelColor(x, y, out);
             }
         }
+    }
+
+    private NativeImageBackedTexture createNIBT(Image image) {
+        createNI(image);
         return new NativeImageBackedTexture(ni);
     }
 

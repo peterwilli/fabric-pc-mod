@@ -36,11 +36,8 @@ public class VNCControlRunnable implements Runnable {
                         VNCReceiver.current.client.moveMouse((int) mouseCurX, (int) mouseCurY);
                     }
 
-                    if(leftMouseButton && lastLeftMouseButton != leftMouseButton) {
-                        VNCReceiver.current.client.click(1);
-                    }
-
                     if(lastLeftMouseButton != leftMouseButton) {
+                        VNCReceiver.current.client.updateMouseButton(1, leftMouseButton);
                         lastLeftMouseButton = leftMouseButton;
                     }
                 }
