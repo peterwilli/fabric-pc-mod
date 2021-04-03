@@ -14,6 +14,7 @@ import static com.emeraldodin.minecraft.pcmod.client.PCModClient.mouseLastY;
 import static com.emeraldodin.minecraft.pcmod.client.PCModClient.rightMouseButton;
 
 public class VNCControlRunnable implements Runnable {
+
     @Override
     public void run() {
         while (true) {
@@ -28,20 +29,12 @@ public class VNCControlRunnable implements Runnable {
                 mouseLastY = mouseCurY;
 
                 if (mcc.currentScreen instanceof PCScreenFocus) {
-                    int val = 0x00;
-                    if (leftMouseButton) {
-                        val += 0x01;
+                    if((Math.abs(deltaX) + Math.abs(deltaY)) > 2) {
+                        VNCReceiver.current.client.moveMouse((int) mouseCurX, (int) mouseCurY);
                     }
-                    if (middleMouseButton) {
-                        val += 0x04;
-                    }
-                    if (rightMouseButton) {
-                        val += 0x02;
-                    }
-                    //console.getMouse().putMouseEvent((int)deltaX, (int)deltaY, mouseDeltaScroll, 0, val);
-                    System.out.println("poopie");
-                    VNCReceiver.current.client.moveMouse((int) mouseCurX, (int) mouseCurY);
                 }
+
+                Thread.sleep(1);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
